@@ -25,7 +25,7 @@ const registerUser = asyncHandler(async (req, res, next) => {
 
 	if (userExist) {
 		res.status(404);
-		throw new Error('Email already used!');
+		throw new Error('Email sudah pernah didaftarkan!');
 	}
 
 	const user = new UserModel({
@@ -52,7 +52,7 @@ const loginUser = asyncHandler(async (req, res, next) => {
 
 	if (!user) {
 		res.status(404);
-		throw new Error('User not found!');
+		throw new Error('User tidak ditemukan!');
 	}
 
 	if (user && (await user.matchPassword(password))) {
@@ -63,7 +63,7 @@ const loginUser = asyncHandler(async (req, res, next) => {
 		});
 	} else {
 		res.status(402);
-		throw new Error('Password wrong!');
+		throw new Error('Password Salah!');
 	}
 });
 
