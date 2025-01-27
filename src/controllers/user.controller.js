@@ -31,7 +31,8 @@ const registerUser = asyncHandler(async (req, res, next) => {
 	const user = new UserModel({
 		email,
 		password,
-		nama
+		nama, 
+		role:'mahasiswa'
 	});
 
 	await user
