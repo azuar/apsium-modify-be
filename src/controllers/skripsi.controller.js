@@ -13,8 +13,16 @@ const getAll = asyncHandler(async (req, res, next) => {
 const getById = asyncHandler(async (req, res, next) => {
 	const { id } = req.params;
 	await SkripsiModel.findById(id)
-		.then((data) => {
-			res.status(200).json({ data });
+		.then(async (data) => {
+			const userInfo = await UserModel.findById( data.user_id )
+                .then((data) => {
+                    const info = JSON.stringify(data)
+                    return JSON.parse(info)
+                })
+                .catch((error) => {
+                    next(error);
+                });
+            res.status(200).json({ data: {...data._doc, ...userInfo} });
 		})
 		.catch((error) => {
 			next(error);
@@ -72,10 +80,20 @@ const updateSkripsi = asyncHandler(async (req, res, next) => {
 		});
 });
 
+const deleteSkripsi = asyncHandler(async (req, res, next) => {
+	const { id } = req.params;
+	await SkripsiModel.findByIdAndDelete(id)
+		.then((user) => {
+			res.status(200).json({ data: user, message: `User deleted` });
+		})
+		.catch((err) => next(err));
+});
+
 module.exports = {
 	getAll, 
     getById, 
     getAllByUserId, 
     createSkripsi, 
-    updateSkripsi
+    updateSkripsi,
+	deleteSkripsi
 };

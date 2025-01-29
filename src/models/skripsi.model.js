@@ -5,8 +5,8 @@ const SkripsiSchema = new Schema(
     {
         user_id: { type: String, required: true },
         judul: { type: String, required: true },
-        pembimbing1: {type: String, required: true},
-        pembimbing2: {type: String, required: true},
+        pembimbing1: {type: Object, required: true},
+        pembimbing2: {type: Object, required: true},
         setuju1: {type: Boolean, required: false},
         setuju2: {type: Boolean, required: false},
         status: {type: String, required: false},

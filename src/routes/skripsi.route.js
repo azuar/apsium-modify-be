@@ -4,13 +4,15 @@ const {
     getById, 
     getAllByUserId, 
     createSkripsi, 
-    updateSkripsi
+    updateSkripsi,
+    deleteSkripsi
 } = require('../controllers/skripsi.controller');
 
 app.get('/', getAll);
 app.get('/:id', getById);
 app.get('/user/:id', getAllByUserId);
 app.post('/add', createSkripsi);
-app.post('/:id', updateSkripsi);
+app.put('/update/:id', updateSkripsi);
+app.delete('/delete/:id', deleteSkripsi);
 
 module.exports = app;
