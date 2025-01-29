@@ -4,8 +4,25 @@ const { UserModel } = require('../models/user.model');
 
 const getAll = asyncHandler(async (req, res, next) => {
 	await SkripsiModel.find()
-		.then((data) => {
-			res.status(200).json(data);
+		.then(async (data) => {
+			const newData = JSON.stringify(data);
+			const parsedData = JSON.parse(newData);
+			const skripsi = parsedData.map(async (element) => {
+				const userInfo = await UserModel.findById( element.user_id )
+                .then((data) => {
+                    const info = JSON.stringify(data)
+                    return JSON.parse(info)
+                })
+                .catch((error) => {
+                    next(error);
+                });
+				element.mahasiswa = userInfo
+				return element
+			});
+			Promise.all(skripsi).then(function(results) {
+				res.status(200).json(results);
+			})
+            
 		})
 		.catch((err) => next(err));
 });
