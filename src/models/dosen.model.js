@@ -5,7 +5,7 @@ const DosenSchema = new Schema(
     {
         nip: { type: String, required: true },
         nama: { type: String, required: true },
-        program_studi: {type: String, required: true},
+        program_study: {type: String, required: true},
     },
     {
         timestamps: {
