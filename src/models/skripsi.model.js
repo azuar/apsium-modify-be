@@ -22,7 +22,8 @@ const SkripsiSchema = new Schema(
         berkas_revisi_sidang: {type:String, required: false},
         tanggal_seminar: {type:String, required: false},
         waktu_seminar: {type:String, required: false},
-        catatan_penguji: {type:Array, required: false},
+        catatan_seminar: {type:Array, required: false},
+        catatan_sidang: {type:Array, required: false},
     },
     {
         timestamps: {
